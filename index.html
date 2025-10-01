@@ -3,8 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
   </head>
-  <body></body>
+  <style>
+    h1 {
+      text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff,
+        -1px 1px 0 #fff;
+    }
+    #circles-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 10px 0;
+      border: 3px solid white;
+    }
+
+    #red-circle {
+      background-color: rgb(52, 0, 0);
+    }
+    #yellow-circle {
+      background-color: rgb(38, 38, 0);
+    }
+    #green-circle {
+      background-color: rgb(0, 23, 0);
+    }
+  </style>
+  <body>
+    <h1 id="colorSelector"></h1>
+    <div id="circles-container">
+      <div class="circle" id="red-circle"></div>
+      <div class="circle" id="yellow-circle"></div>
+      <div class="circle" id="green-circle"></div>
+    </div>
+
+    <h1 id="trafficLight"></h1>
+  </body>
+  <script src="scripts.js"></script>
 </html>
