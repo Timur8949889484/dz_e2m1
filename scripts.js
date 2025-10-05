@@ -1,45 +1,58 @@
-let colorP = prompt("Цвет фона:");
-const mainHeading = document.getElementById("colorSelector");
+let count = 0;
+const counterValueElement = document.getElementById("counter-value");
 
-/**
- * Если введённое значение не является цветом, вывести "Ошибка! Введите корректный цвет".
- * Я не понял как мне это сделать, пришлось в интернете искать решение
- * @param {string} strColor
- * @returns {boolean}
- */
-function isCssColor(strColor) {
+function changeCounter(delta) {
+  const newCount = count + delta;
+
+  if (delta === -1 && newCount < 0) {
+    return;
+  }
+
+  count = newCount;
+  counterValueElement.textContent = count;
+
+  counterValueElement.classList.remove("green", "red");
+  if (delta === 1) {
+    counterValueElement.classList.add("green");
+  } else if (delta === -1) {
+    counterValueElement.classList.add("red");
+  }
+}
+
+const coordinateBox = document.getElementById("coordinate-box");
+const coordsDisplay = document.getElementById("coords");
+
+coordinateBox.addEventListener("mousemove", function (event) {
+  const clientX = event.clientX;
+  const clientY = event.clientY;
+
+  const rect = coordinateBox.getBoundingClientRect();
+
+  const relativeX = Math.round(clientX - rect.left);
+  const relativeY = Math.round(clientY - rect.top);
+
+  coordsDisplay.textContent = `X: ${relativeX}, Y: ${relativeY}`;
+});
+
+coordinateBox.addEventListener("mouseleave", function () {
+  coordsDisplay.textContent = "Наведите курсор";
+});
+
+const colorInput = document.getElementById("color-input");
+const bodyElement = document.body;
+
+colorInput.addEventListener("input", function () {
+  const colorName = colorInput.value.trim().toLowerCase();
+
+  if (isValidCssColor(colorName)) {
+    bodyElement.style.backgroundColor = colorName;
+  } else {
+    bodyElement.style.backgroundColor = "white";
+  }
+});
+
+function isValidCssColor(color) {
   const s = new Option().style;
-
-  s.color = strColor;
-
-  return s.color.length > 0;
-}
-
-if (!colorP) {
-  mainHeading.textContent = "Цвет не был введён (отмена ввода).";
-} else if (isCssColor(colorP.toLowerCase())) {
-  document.body.style.backgroundColor = colorP;
-
-  mainHeading.textContent = `Фон изменён на ${colorP.toLowerCase()}`;
-} else {
-  mainHeading.textContent = "Ошибка! Введите корректный цвет";
-}
-
-let colorChoose = prompt("Цвет светофора:");
-const red = document.getElementById("red-circle");
-const yellow = document.getElementById("yellow-circle");
-const green = document.getElementById("green-circle");
-const trafficLight = document.getElementById("trafficLight");
-
-if (colorChoose && colorChoose.toLowerCase() == "красный") {
-  red.style.background = "red";
-  trafficLight.textContent = "STOP";
-} else if (colorChoose && colorChoose.toLowerCase() == "желтый") {
-  yellow.style.background = "yellow";
-  trafficLight.textContent = "WAIT";
-} else if (colorChoose && colorChoose.toLowerCase() == "зеленый") {
-  green.style.background = "green";
-  trafficLight.textContent = "GO";
-} else {
-  trafficLight.textContent = "Ошибка";
+  s.color = color;
+  return s.color !== "";
 }
