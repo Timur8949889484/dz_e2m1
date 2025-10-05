@@ -6,42 +6,90 @@
     <title>Document</title>
   </head>
   <style>
-    h1 {
-      text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff,
-        -1px 1px 0 #fff;
+    body {
+      transition: background-color 0.5s;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: white;
     }
-    #circles-container {
+
+    .counter-container {
+      margin-bottom: 30px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      display: inline-block;
+    }
+    #counter-value {
+      font-size: 2em;
+      margin: 0 10px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .btn-counter {
+      padding: 10px 15px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .green {
+      color: green;
+    }
+    .red {
+      color: red;
+    }
+
+    #coordinate-box {
+      width: 500px;
+      height: 500px;
+      border: 2px solid blue;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      background-color: #f0f8ff;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    #coords {
+      position: absolute;
+      top: 10px;
+      left: 10px;
     }
 
-    .circle {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      margin: 10px 0;
-      border: 3px solid white;
+    #color-input-container {
+      padding: 15px;
+      border: 1px solid #ccc;
+      display: inline-block;
     }
-
-    #red-circle {
-      background-color: rgb(52, 0, 0);
-    }
-    #yellow-circle {
-      background-color: rgb(38, 38, 0);
-    }
-    #green-circle {
-      background-color: rgb(0, 23, 0);
+    #color-input {
+      padding: 10px;
+      font-size: 1em;
     }
   </style>
   <body>
-    <h1 id="colorSelector"></h1>
-    <div id="circles-container">
-      <div class="circle" id="red-circle"></div>
-      <div class="circle" id="yellow-circle"></div>
-      <div class="circle" id="green-circle"></div>
+    <h2>1. Счетчик с изменением цвета</h2>
+
+    <div class="counter-container">
+      <button class="btn-counter" onclick="changeCounter(-1)">-</button>
+      <span id="counter-value" class="green">0</span>
+      <button class="btn-counter" onclick="changeCounter(1)">+</button>
     </div>
 
-    <h1 id="trafficLight"></h1>
+    <h2>2. Блок с координатами курсора (относительно блока)</h2>
+
+    <div id="coordinate-box">
+      <div id="coords">Наведите курсор</div>
+    </div>
+
+    <h2>3. Динамическое изменение цвета фона</h2>
+
+    <div id="color-input-container">
+      <label for="color-input"
+        >Введите название цвета (напр., red, blue, #f00):</label
+      >
+      <input type="text" id="color-input" placeholder="Введите цвет" />
+    </div>
   </body>
   <script src="scripts.js"></script>
 </html>
