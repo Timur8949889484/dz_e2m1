@@ -1,108 +1,44 @@
-const inputElem = document.querySelector("#taskInput");
-const createElem = document.querySelector("#addBtn");
-const taskListElem = document.querySelector("#list");
+let numbers = [10, 2, 8, 4, 6];
+console.log("Исходный массив:", numbers);
 
-const createActionsHTML = () => {
-  const editSVG = `
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M3 21l3-1 11-11 2 2L8 22 3 21z"
-            stroke="white"
-            stroke-width="0.9"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            opacity="0.8"
-          ></path>
-        </svg>`;
+numbers.push(7);
+numbers.unshift(1);
+console.log("Массив после добавления (1 и 7):", numbers);
 
-  const deleteSVG = `
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M3 6h18M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6M10 6V4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2"
-            stroke="white"
-            stroke-width="0.96"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-        </svg>`;
+numbers.pop();
+numbers.shift();
+console.log("Массив после удаления:", numbers);
 
-  return { editSVG, deleteSVG };
-};
+const containsFive = numbers.includes(5);
+console.log("Массив содержит число 5:", containsFive);
 
-createElem.addEventListener("click", () => {
-  const value = inputElem.value.trim();
+const stringArray = numbers.join(", ");
+console.log("Массив в виде строки:", stringArray);
 
-  if (!value) return alert("Значение не должно быть пустым!");
+const celebrities = [
+  { name: "Timothée Chalamet", age: 29 },
+  { name: "Zendaya", age: 28 },
+  { name: "Tom Holland", age: 28 },
+  { name: "Billie Eilish", age: 22 },
+  { name: "Margot Robbie", age: 34 },
+  { name: "Ryan Gosling", age: 44 },
+  { name: "Anya Taylor-Joy", age: 28 },
+  { name: "Robert Downey Jr.", age: 60 },
+  { name: "Millie Bobby Brown", age: 20 },
+  { name: "Keanu Reeves", age: 61 },
+];
+console.log("\nИсходный массив знаменитостей создан.");
 
-  const { editSVG, deleteSVG } = createActionsHTML();
+const names = celebrities.map((celebrity) => celebrity.name);
+console.log("\nМассив имён:", names);
 
-  const task = document.createElement("div");
-  task.setAttribute("class", "task");
-  task.setAttribute("data-done", "false");
-  taskListElem.append(task);
+const olderThan24 = celebrities.filter((celebrity) => celebrity.age > 24);
+console.log("\nЗнаменитости старше 24 лет (объекты):", olderThan24);
 
-  const checkboxBtn = document.createElement("button");
-  checkboxBtn.setAttribute("class", "checkbox");
-  task.append(checkboxBtn);
-
-  const taskStatus = document.createElement("div");
-  taskStatus.setAttribute("class", "task-status");
-  checkboxBtn.append(taskStatus);
-
-  const taskName = document.createElement("div");
-  taskName.setAttribute("class", "text");
-  task.append(taskName);
-  taskName.innerText = value;
-
-  const actions = document.createElement("div");
-  actions.setAttribute("class", "actions");
-  task.append(actions);
-
-  const editBtn = document.createElement("button");
-  editBtn.setAttribute("class", "icon-btn");
-  editBtn.innerHTML = editSVG;
-  actions.append(editBtn);
-
-  const deleteBtn = document.createElement("button");
-  deleteBtn.setAttribute("class", "icon-btn delete");
-  deleteBtn.innerHTML = deleteSVG;
-  actions.append(deleteBtn);
-
-  inputElem.value = "";
-
-  checkboxBtn.addEventListener("click", () => {
-    const isDone = task.getAttribute("data-done") === "true";
-
-    if (isDone) {
-      task.setAttribute("data-done", "false");
-      taskStatus.style.backgroundColor = "";
-      taskName.style.textDecoration = "";
-    } else {
-      task.setAttribute("data-done", "true");
-      taskStatus.style.backgroundColor = "#5cb85c";
-      taskName.style.textDecoration = "line-through";
-    }
-  });
-
-  deleteBtn.addEventListener("click", () => {
-    task.remove();
-  });
-
-  const handleEdit = () => {
-    const currentText = taskName.innerText;
-    const newText = prompt("Отредактируйте задачу:", currentText);
-
-    if (newText !== null) {
-      const trimmedText = newText.trim();
-      if (trimmedText) {
-        taskName.innerText = trimmedText;
-      } else {
-        alert("Значение не должно быть пустым!");
-      }
-    }
-  };
-
-  editBtn.addEventListener("click", handleEdit);
-
-  taskName.addEventListener("dblclick", handleEdit);
+const oldestCelebrity = celebrities.reduce((oldest, current) => {
+  return current.age > oldest.age ? current : oldest;
 });
+console.log("\nСамый старший:", oldestCelebrity);
+
+const hasMinors = celebrities.some((celebrity) => celebrity.age < 18);
+console.log("\nЕсть ли среди знаменитостей несовершеннолетние:", hasMinors);
