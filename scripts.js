@@ -1,44 +1,62 @@
-let numbers = [10, 2, 8, 4, 6];
-console.log("Исходный массив:", numbers);
+const user = {
+  id: 101,
+  name: "user",
+  age: 28,
+  job: "Frontend Developer",
+  skills: {
+    programming: ["JavaScript", "TypeScript", "React"],
+    softSkills: ["communication", "teamwork"],
+  },
+  contacts: {
+    email: "user@example.com",
+    phone: "+996555123456",
+  },
+};
 
-numbers.push(7);
-numbers.unshift(1);
-console.log("Массив после добавления (1 и 7):", numbers);
+const {
+  name,
+  age,
+  job,
+  skills: { programming, softSkills },
+} = user;
 
-numbers.pop();
-numbers.shift();
-console.log("Массив после удаления:", numbers);
+const userAddress = user.address?.city ?? "Адрес не указан";
 
-const containsFive = numbers.includes(5);
-console.log("Массив содержит число 5:", containsFive);
+console.log(name);
+console.log(age);
+console.log(job);
+console.log(programming);
+console.log(programming[0]);
+console.log(softSkills);
+console.log(userAddress);
 
-const stringArray = numbers.join(", ");
-console.log("Массив в виде строки:", stringArray);
-
-const celebrities = [
-  { name: "Timothée Chalamet", age: 29 },
-  { name: "Zendaya", age: 28 },
-  { name: "Tom Holland", age: 28 },
-  { name: "Billie Eilish", age: 22 },
-  { name: "Margot Robbie", age: 34 },
-  { name: "Ryan Gosling", age: 44 },
-  { name: "Anya Taylor-Joy", age: 28 },
-  { name: "Robert Downey Jr.", age: 60 },
-  { name: "Millie Bobby Brown", age: 20 },
-  { name: "Keanu Reeves", age: 61 },
+const users = [
+  { name: "user1", age: 29, address: { city: "Bishkek" } },
+  { name: "user2", age: 23 },
+  { name: "user3", age: 35, address: { city: "Madrid" } },
 ];
-console.log("\nИсходный массив знаменитостей создан.");
 
-const names = celebrities.map((celebrity) => celebrity.name);
-console.log("\nМассив имён:", names);
+const usersWithCity = users.map((user) => {
+  const city = user.address?.city;
 
-const olderThan24 = celebrities.filter((celebrity) => celebrity.age > 24);
-console.log("\nЗнаменитости старше 24 лет (объекты):", olderThan24);
-
-const oldestCelebrity = celebrities.reduce((oldest, current) => {
-  return current.age > oldest.age ? current : oldest;
+  return {
+    name: user.name,
+    age: user.age,
+    city: city ?? "Город не указан",
+  };
 });
-console.log("\nСамый старший:", oldestCelebrity);
 
-const hasMinors = celebrities.some((celebrity) => celebrity.age < 18);
-console.log("\nЕсть ли среди знаменитостей несовершеннолетние:", hasMinors);
+console.log(usersWithCity);
+
+function calculateSum(multiplier, ...numbers) {
+  const sum = numbers.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+
+  return sum * multiplier;
+}
+
+console.log(calculateSum(2, 5, 10, 3));
+console.log(calculateSum(10, 1, 2));
+console.log(calculateSum(5));
