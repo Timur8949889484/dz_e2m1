@@ -20,7 +20,7 @@ const {
   skills: { programming, softSkills },
 } = user;
 
-const userAddress = user.address?.city ?? "Адрес не указан";
+const userAddress = user?.address ?? "Адрес не указан";
 
 console.log(name);
 console.log(age);
