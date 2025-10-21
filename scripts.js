@@ -1,62 +1,33 @@
-const user = {
-  id: 101,
-  name: "user",
-  age: 28,
-  job: "Frontend Developer",
-  skills: {
-    programming: ["JavaScript", "TypeScript", "React"],
-    softSkills: ["communication", "teamwork"],
-  },
-  contacts: {
-    email: "user@example.com",
-    phone: "+996555123456",
-  },
-};
-
-const {
-  name,
-  age,
-  job,
-  skills: { programming, softSkills },
-} = user;
-
-const userAddress = user?.address ?? "Адрес не указан";
-
-console.log(name);
-console.log(age);
-console.log(job);
-console.log(programming);
-console.log(programming[0]);
-console.log(softSkills);
-console.log(userAddress);
-
 const users = [
-  { name: "user1", age: 29, address: { city: "Bishkek" } },
-  { name: "user2", age: 23 },
-  { name: "user3", age: 35, address: { city: "Madrid" } },
+  { id: 1, name: "user1", age: 25, isOnline: true },
+  { id: 2, name: "user2", age: 30, isOnline: false },
+  { id: 3, name: "user3", age: 22, isOnline: true },
+  { id: 4, name: "user4", age: 27, isOnline: false },
 ];
 
-const usersWithCity = users.map((user) => {
-  const city = user.address?.city;
+const onlineUsers = users.filter((user) => user.isOnline);
+console.log("Онлайн пользователи:", onlineUsers);
 
-  return {
-    name: user.name,
-    age: user.age,
-    city: city ?? "Город не указан",
-  };
-});
+const usersWithStatus = users.map((user) => ({
+  ...user,
+  status: user.isOnline ? "Active" : "Offline",
+}));
+console.log("Пользователи со статусом:", usersWithStatus);
 
-console.log(usersWithCity);
+const userWithId3 = users.find((user) => user.id === 3);
+const userName = userWithId3 ? userWithId3.name : "Пользователь не найден";
+console.log("Имя пользователя с id = 3:", userName);
 
-function calculateSum(multiplier, ...numbers) {
-  const sum = numbers.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
+const totalAge = users.reduce((accumulator, user) => accumulator + user.age, 0);
+const averageAge = totalAge / users.length;
+console.log("Средний возраст:", averageAge);
+
+const roles = { admin: "Alice", user: "Bob", guest: "Charlie" };
+
+function invertObject(obj) {
+  return Object.fromEntries(
+    Object.entries(obj).map(([key, value]) => [value, key])
   );
-
-  return sum * multiplier;
 }
 
-console.log(calculateSum(2, 5, 10, 3));
-console.log(calculateSum(10, 1, 2));
-console.log(calculateSum(5));
+console.log(invertObject(roles));
